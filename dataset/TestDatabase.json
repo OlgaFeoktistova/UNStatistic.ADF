@@ -1,0 +1,47 @@
+{
+	"name": "TestDatabase",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DST"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ShopID",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "ShopName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sysCreatedAT",
+				"type": "datetime2",
+				"scale": 3
+			},
+			{
+				"name": "sysChangedAt",
+				"type": "datetime2",
+				"scale": 3
+			},
+			{
+				"name": "sysCreatedBy",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sysChangedBy",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Shop"
+		}
+	}
+}
