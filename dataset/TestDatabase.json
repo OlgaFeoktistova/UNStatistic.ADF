@@ -12,13 +12,25 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "ShopID",
-				"type": "tinyint",
-				"precision": 3
+				"name": "PersonID",
+				"type": "int",
+				"precision": 10
 			},
 			{
-				"name": "ShopName",
+				"name": "FirstName",
 				"type": "nvarchar"
+			},
+			{
+				"name": "MiddleName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Surname",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DateBirth",
+				"type": "date"
 			},
 			{
 				"name": "sysCreatedAT",
