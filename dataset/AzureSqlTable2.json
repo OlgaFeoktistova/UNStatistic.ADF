@@ -2,7 +2,7 @@
 	"name": "AzureSqlTable2",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
+			"referenceName": "AzureFor CSV",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
