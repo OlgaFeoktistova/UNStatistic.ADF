@@ -38,10 +38,6 @@
 				"name": "sysChangedBy",
 				"type": "nvarchar"
 			}
-		],
-		"typeProperties": {
-			"schema": "dbo",
-			"table": "Shop"
-		}
+		]
 	}
 }
