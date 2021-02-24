@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "DST.csv",
 				"folderPath": "CountryRef",
 				"container": "unstatisticresourcedata"
 			},
