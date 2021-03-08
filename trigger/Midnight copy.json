@@ -1,0 +1,24 @@
+{
+	"name": "Midnight copy",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "unstatistic-extract-countries",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-03-09T00:01:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
