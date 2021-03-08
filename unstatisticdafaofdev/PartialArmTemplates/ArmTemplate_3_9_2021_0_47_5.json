@@ -6,164 +6,12 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "unstatisticdafaofdev"
-		},
-		"AzureSqlDatabase1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
-		},
-		"SqlServer1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
-		},
-		"UNStatistic_OB_LinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'UNStatistic_OB_LinkedService'"
-		},
-		"UNStatistic_DWH_DEV_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'UNStatistic_DWH_DEV'"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_src_csv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "UNStatistic_OB_LinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "all.csv",
-						"folderPath": "CountryRef",
-						"container": "unstatisticresourcedata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "name",
-						"type": "String"
-					},
-					{
-						"name": "alpha-2",
-						"type": "String"
-					},
-					{
-						"name": "alpha-3",
-						"type": "String"
-					},
-					{
-						"name": "country-code",
-						"type": "String"
-					},
-					{
-						"name": "iso_3166-2",
-						"type": "String"
-					},
-					{
-						"name": "region",
-						"type": "String"
-					},
-					{
-						"name": "sub-region",
-						"type": "String"
-					},
-					{
-						"name": "intermediate-region",
-						"type": "String"
-					},
-					{
-						"name": "region-code",
-						"type": "String"
-					},
-					{
-						"name": "sub-region-code",
-						"type": "String"
-					},
-					{
-						"name": "intermediate-region-code",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/UNStatistic_OB_LinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SqlServer1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UNStatistic_OB_LinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('UNStatistic_OB_LinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UNStatistic_DWH_DEV')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('UNStatistic_DWH_DEV_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/unstatistic-extract-countries')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -353,15 +201,13 @@
 						"inputs": [
 							{
 								"referenceName": "ds_src_csv",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_dst_staging_countryref",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -455,66 +301,7 @@
 				],
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_src_csv')]",
-				"[concat(variables('factoryId'), '/datasets/ds_dst_staging_countryref')]",
-				"[concat(variables('factoryId'), '/linkedServices/UNStatistic_DWH_DEV')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_dst_staging_countryref')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "UNStatistic_DWH_DEV",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "DST"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "staging",
-					"table": "countriesref_untyped"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/UNStatistic_DWH_DEV')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Midnight copy')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "unstatistic-extract-countries",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2021-03-09T00:01:00Z",
-						"timeZone": "UTC",
-						"schedule": {}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/unstatistic-extract-countries')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
