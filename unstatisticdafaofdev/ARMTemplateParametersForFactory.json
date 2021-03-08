@@ -13,6 +13,9 @@
 		},
 		"UNStatistic_OB_LinkedService_connectionString": {
 			"value": ""
+		},
+		"UNStatistic_DWH_DEV_connectionString": {
+			"value": ""
 		}
 	}
 }

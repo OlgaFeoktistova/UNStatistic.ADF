@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'UNStatistic_OB_LinkedService'"
 		},
+		"UNStatistic_DWH_DEV_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'UNStatistic_DWH_DEV'"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -54,6 +58,9 @@
 					},
 					"UNStatistic_OB_LinkedService_connectionString": {
 						"value": "[parameters('UNStatistic_OB_LinkedService_connectionString')]"
+					},
+					"UNStatistic_DWH_DEV_connectionString": {
+						"value": "[parameters('UNStatistic_DWH_DEV_connectionString')]"
 					}
 				}
 			},
