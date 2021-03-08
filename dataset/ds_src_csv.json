@@ -21,21 +21,47 @@
 		},
 		"schema": [
 			{
+				"name": "name",
 				"type": "String"
 			},
 			{
+				"name": "alpha-2",
 				"type": "String"
 			},
 			{
+				"name": "alpha-3",
 				"type": "String"
 			},
 			{
+				"name": "country-code",
 				"type": "String"
 			},
 			{
+				"name": "iso_3166-2",
 				"type": "String"
 			},
 			{
+				"name": "region",
+				"type": "String"
+			},
+			{
+				"name": "sub-region",
+				"type": "String"
+			},
+			{
+				"name": "intermediate-region",
+				"type": "String"
+			},
+			{
+				"name": "region-code",
+				"type": "String"
+			},
+			{
+				"name": "sub-region-code",
+				"type": "String"
+			},
+			{
+				"name": "intermediate-region-code",
 				"type": "String"
 			}
 		]
