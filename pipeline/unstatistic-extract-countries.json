@@ -1,6 +1,194 @@
 {
 	"name": "unstatistic-extract-countries",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy countries",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE [staging].[countriesref_untyped]",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "alpha-2",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "alpha-2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "alpha-3",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "alpha-3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "country-code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "country-code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "iso_3166-2",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "iso_3166-2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "region",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "region",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "sub-region",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "sub-region",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "intermediate-region",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "intermediate-region",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "region-code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "region-code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "sub-region-code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "sub-region-code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "intermediate-region-code",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "intermediate-region-code",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_src_csv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_dst_staging_countryref",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
 		"annotations": []
 	}
 }
