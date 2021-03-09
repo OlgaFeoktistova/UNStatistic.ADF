@@ -35,7 +35,6 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "TRUNCATE TABLE [staging].[countriesref_untyped]",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -44,132 +43,60 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "name",
+									"name": "RegionName",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "name",
+									"name": "RegionName",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "alpha-2",
+									"name": "SubRegionName",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "alpha-2",
+									"name": "SubRegionName",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "alpha-3",
+									"name": "CountryName",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "alpha-3",
+									"name": "CountryName",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "country-code",
+									"name": "Year",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "country-code",
+									"name": "Year",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "iso_3166-2",
+									"name": "Count",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "iso_3166-2",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "region",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "region",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "sub-region",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "sub-region",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "intermediate-region",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "intermediate-region",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "region-code",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "region-code",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "sub-region-code",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "sub-region-code",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "intermediate-region-code",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "intermediate-region-code",
+									"name": "Count",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -185,12 +112,26 @@
 				"inputs": [
 					{
 						"referenceName": "ds_src_csv_uncrimefile",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@variables('container')",
+								"type": "Expression"
+							},
+							"path": {
+								"value": "@variables('filepath')",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@variables('filename')",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_dst_staging_countryref",
+						"referenceName": "ds_dst_staging_uncrime",
 						"type": "DatasetReference"
 					}
 				]
@@ -286,6 +227,20 @@
 		"parameters": {
 			"filename": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"container": {
+				"type": "String",
+				"defaultValue": "unstatisticresourcedata"
+			},
+			"filepath": {
+				"type": "String",
+				"defaultValue": "UNCrime"
+			},
+			"filename": {
+				"type": "String",
+				"defaultValue": "bribery"
 			}
 		},
 		"annotations": []
