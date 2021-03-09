@@ -1,0 +1,15 @@
+{
+	"name": "ds_dst_dummy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "UNStatistic_DWH_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DST"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
