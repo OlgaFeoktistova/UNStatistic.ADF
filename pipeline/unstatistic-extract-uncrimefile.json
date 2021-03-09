@@ -7,7 +7,19 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "SP Log Pipeline Start",
+						"activity": "Set container",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set filepath",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set filename",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -221,6 +233,98 @@
 				"linkedServiceName": {
 					"referenceName": "UNStatistic_DWH_DEV",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Get configuration",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SP Log Pipeline Start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[adf].[usp_Configuration_Get]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_dst_dummy",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Set container",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get configuration",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "container",
+					"value": {
+						"value": "@activity('Get configuration').output.firstrow.container",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set filepath",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get configuration",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "filepath",
+					"value": {
+						"value": "@activity('Get configuration').output.firstrow.UNCrimepath",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set filename",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get configuration",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "filename",
+					"value": {
+						"value": "@pipeline().parameters.filename",
+						"type": "Expression"
+					}
 				}
 			}
 		],
