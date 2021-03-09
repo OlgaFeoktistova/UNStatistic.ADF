@@ -231,16 +231,13 @@
 		},
 		"variables": {
 			"container": {
-				"type": "String",
-				"defaultValue": "unstatisticresourcedata"
+				"type": "String"
 			},
 			"filepath": {
-				"type": "String",
-				"defaultValue": "UNCrime"
+				"type": "String"
 			},
 			"filename": {
-				"type": "String",
-				"defaultValue": "bribery"
+				"type": "String"
 			}
 		},
 		"annotations": []
